@@ -1,9 +1,9 @@
 apiVersion: v2
-name: meu-deploy-teste
+name: db-chart
 description: Repositório de deployment que usa o Chart do db-chart
 type: application
 version: 1.0.0
 dependencies:
   - name: db-chart
     version: 0.1.0
-    repository: "https://github.com/Dyego-Barros/db-chart"
+    repository: "https://Dyego-Barros.github.io/db-chart"

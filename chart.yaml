@@ -1,5 +1,5 @@
 apiVersion: v2
-name: meu-deploy
+name: meu-deploy-teste
 description: Repositório de deployment que usa o Chart do db-chart
 type: application
 version: 1.0.0

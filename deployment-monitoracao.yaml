@@ -19,7 +19,7 @@ spec:
   resources:
     requests:
       storage: 10Gi  # Defina o tamanho necessário para o volume
-  storageClassName: standard  # Referência ao StorageClass configurado acima
+  storageClassName:  local-storage  # Referência ao StorageClass configurado acima
 ---
 apiVersion: apps/v1
 kind: Deployment

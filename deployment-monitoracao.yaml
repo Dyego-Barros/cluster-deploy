@@ -1,4 +1,14 @@
 ---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: standard  # Nome do StorageClass
+provisioner: kubernetes.io/aws-ebs  # Ou use o provisionador do seu ambiente, como gce-pd ou azure-disk
+parameters:
+  type: gp2  # Tipo de volume, no caso de AWS EBS
+reclaimPolicy: Retain  # O que acontece com o volume quando o PVC é excluído
+volumeBindingMode: WaitForFirstConsumer  # Vincula o volume ao nó somente quando ele for consumido
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -8,7 +18,8 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi  # Defina o tamanho necessário
+      storage: 10Gi  # Defina o tamanho necessário para o volume
+  storageClassName: standard  # Referência ao StorageClass configurado acima
 ---
 apiVersion: apps/v1
 kind: Deployment

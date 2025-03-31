@@ -2,8 +2,8 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: standard  # Nome do StorageClass
-provisioner: kubernetes.io/aws-ebs  # Ou use o provisionador do seu ambiente, como gce-pd ou azure-disk
+  name: local-storage  # Nome do StorageClass
+provisioner: kubernetes.io/no-provisioner # Ou use o provisionador do seu ambiente, como gce-pd ou azure-disk
 parameters:
   type: gp2  # Tipo de volume, no caso de AWS EBS
 reclaimPolicy: Retain  # O que acontece com o volume quando o PVC é excluído

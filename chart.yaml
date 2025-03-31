@@ -6,4 +6,4 @@ version: 1.0.0
 dependencies:
   - name: db-chart
     version: 0.1.0
-    repository: "https://dyego-barros.github.io/db-chart/index.yaml"
+    repository: "https://dyego-barros.github.io/db-chart"

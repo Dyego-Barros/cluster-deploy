@@ -93,7 +93,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: prometheus.meusite.com  # Altere para o domínio desejado
+    - host: prometheus.meuteste.com  # Altere para o domínio desejado
       http:
         paths:
           - path: /
@@ -150,7 +150,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: grafana.meusite.com  # Altere para o domínio desejado
+    - host: grafana.meuteste.com  # Altere para o domínio desejado
       http:
         paths:
           - path: /

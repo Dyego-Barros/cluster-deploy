@@ -12,10 +12,10 @@ volumeBindingMode: WaitForFirstConsumer  # Vincula o volume ao nó somente quand
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: local-pv-1
+  name: prometheus-pvc
 spec:
   capacity:
-    storage: 10Gi
+    storage: 20Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain

@@ -91,6 +91,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
     - host: prometheus.meusite.com  # Altere para o domínio desejado
       http:
@@ -147,6 +148,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
     - host: grafana.meusite.com  # Altere para o domínio desejado
       http:

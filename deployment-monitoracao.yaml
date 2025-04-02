@@ -20,6 +20,14 @@ spec:
     requests:
       storage: 20Gi
   storageClassName: local-storage  # Deve ser o mesmo do PV
+nodeAffinity:
+  required:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - worker1
 
 ---
 apiVersion: apps/v1

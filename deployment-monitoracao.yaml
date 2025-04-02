@@ -10,18 +10,17 @@ reclaimPolicy: Retain  # O que acontece com o volume quando o PVC é excluído
 volumeBindingMode: WaitForFirstConsumer  # Vincula o volume ao nó somente quando ele for consumido
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: prometheus-pvc
+  name: prometheus-pvc  # Nome que será referenciado no Deployment
 spec:
-  capacity:
-    storage: 20Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
-  local:
-    path: /mnt/disco-local  # Referência ao StorageClass configurado acima
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: local-storage  # Deve ser o mesmo do PV
+
 ---
 apiVersion: apps/v1
 kind: Deployment

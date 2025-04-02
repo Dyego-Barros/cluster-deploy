@@ -3,32 +3,43 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: local-storage  # Nome do StorageClass
-provisioner: kubernetes.io/no-provisioner # Ou use o provisionador do seu ambiente, como gce-pd ou azure-disk
-parameters:
-  type: gp2  # Tipo de volume, no caso de AWS EBS
-reclaimPolicy: Retain  # O que acontece com o volume quando o PVC é excluído
-volumeBindingMode: WaitForFirstConsumer  # Vincula o volume ao nó somente quando ele for consumido
+provisioner: kubernetes.io/no-provisioner  # Para armazenamento local
+volumeBindingMode: WaitForFirstConsumer  # Aguarda o pod antes de vincular
+reclaimPolicy: Retain  # O PV não será apagado ao excluir o PVC
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prometheus-pv
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /mnt/disco-local  # Caminho físico no nó worker1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - worker1  # Nome exato do nó onde o PV está
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: prometheus-pvc  # Nome que será referenciado no Deployment
+  name: prometheus-pvc
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 20Gi
-  storageClassName: local-storage  # Deve ser o mesmo do PV
-nodeAffinity:
-  required:
-    nodeSelectorTerms:
-      - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-              - worker1
-
+  storageClassName: local-storage
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -46,6 +57,8 @@ spec:
       labels:
         app: prometheus
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: worker1  # Garante que o pod roda no mesmo nó do PV
       containers:
         - name: prometheus
           image: prom/prometheus:latest
@@ -112,7 +125,7 @@ spec:
             - containerPort: 3000
           env:
             - name: GF_SECURITY_ADMIN_PASSWORD
-              value: "admin"  # Altere para a senha que deseja para o admin
+              value: "admin"  # Altere para uma senha segura
 ---
 apiVersion: v1
 kind: Service

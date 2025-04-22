@@ -2,9 +2,9 @@ default:
   replicaCount: 1
 
   image:
-    repository: bitnami/prometheus
+    repository: prom/prometheus
     pullPolicy: IfNotPresent
-    tag: "latest"
+    tag: "v2.52.0"
 
   service:
     type: ClusterIP

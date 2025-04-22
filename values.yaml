@@ -1,4 +1,4 @@
-prometheus:
+default:
   replicaCount: 1
 
   image:

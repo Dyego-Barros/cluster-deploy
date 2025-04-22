@@ -47,9 +47,12 @@ default:
 
   kubeStateMetrics:
     enabled: true
+    fullnameOverride: prometheus-kube-state-metrics
+    
 
   nodeExporter:
     enabled: true
+    fullnameOverride: prometheus-node-exporter
 
   resources:
     limits:

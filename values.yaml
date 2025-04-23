@@ -32,7 +32,7 @@ default:
         claimName: prometheus-default-pvc
 
   storageClass:
-    create: true
+    create: false
     name: local-storage
 
   persistence:

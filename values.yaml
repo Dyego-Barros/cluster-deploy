@@ -67,6 +67,11 @@ default:
     minReplicas: 1
     maxReplicas: 3
     targetCPUUtilizationPercentage: 80
+    
+  additionalScrapeConfigs:
+    enabled: true
+    name: prometheus-additional-scrape-configs
+    key: additional-scrape-configs.yaml
 
   securityContext:
     runAsUser: 0
